@@ -4,9 +4,7 @@
 #include <iterator>
 #include <vector>
 #include <iostream>
-#define ll long long int
-#define ull unsigned long long int
-
+#define ll long long
 #define pb push_back
 #define mp make_pair
 using namespace std;
@@ -41,48 +39,35 @@ ll modInverse(ll A,ll M)
 }
 
 
-ll bin(vector<int> v,ll key,ll fin){
-    ll start=0;    fin-=1;
-    while(start<=fin){
-        ll mid=(start+fin)/2;
-
-        if(v[mid]==key){
-            return mid;
-        }
-        else if(v[mid]>key){
-            fin=mid-1;
-        }
-        else if(v[mid]<key)
-            start=mid+1;
-    }
-    return -1;
-    }
-
-
-
 int main(){
     //freopen("in.txt", "r", stdin);
    // freopen("output.txt","w",stdout);//redirects standard output
        ios_base::sync_with_stdio(false);
-cin.tie(NULL);
+        cin.tie(NULL);
 
+       char a[4]{'!','!','!','!'};
 
-   ll n;    cin>>n;     vector<ll> v;
-   for(int i=2;i<=n;i=i+2){
-    v.pb(i);
-   }
-   for(int i=1;i<=n;i=i+2){
-    v.pb(i);
-   }
-   for(int i=2;i<=n;i=i+2){
-    v.pb(i);
-   }
-   cout<<v.size()<<"\n";
-   for(int i=0;i<v.size();i++){
-    cout<<v[i]<<" ";
-   }
+       string s;    cin>>s;
 
+        for(int i=0;i<s.length();i++){
+            if(s[i]!='!'){
+                a[i%4]=s[i];
+            }
+        }
+       // cout<<a[0]<<a[1]<<a[2]<<a[3]<<"\n";
+       ll kr=0,kb=0,ky=0,kg=0;
+
+       for(int i=0;i<s.length();i++){
+        if(s[i]=='!' && a[i%4]=='R')
+            kr++;
+        if(s[i]=='!' && a[i%4]=='B')
+            kb++;
+        if(s[i]=='!' && a[i%4]=='Y')
+            ky++;
+        if(s[i]=='!' && a[i%4]=='G')
+            kg++;
+       }
+       cout<<kr<<" "<<kb<<" "<<ky<<" "<<kg;
 
     return 0;
-
 }
