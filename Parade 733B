@@ -1,0 +1,76 @@
+#include<bits/stdc++.h>
+#include <algorithm>
+#include <iostream>
+#include <iterator>
+#include <vector>
+#include <iostream>
+#define ll long long
+#define pb push_back
+#define mp make_pair
+using namespace std;
+
+ll mod=1e9+7;
+
+ll modexp(ll x,ll n)
+{
+	if(n==0)
+		return 1;
+	if(n%2==0)
+	{
+		ll y=modexp(x,n/2)%mod;
+		return (y*y)%mod;
+	}
+	return (x*modexp(x,n-1)%mod)%mod;
+}
+ll modularExponentiation(ll x,ll n,ll M)
+{
+    if(n==0)
+        return 1;
+    else if(n%2 == 0)        //n is even
+        return modularExponentiation((x*x)%M,n/2,M);
+    else                             //n is odd
+        return (x*modularExponentiation((x*x)%M,(n-1)/2,M))%M;
+
+}
+
+ll modInverse(ll A,ll M)
+{
+    return modularExponentiation(A,M-2,M);
+}
+ll n,k;
+bool solve(ll x,ll y,ll z){
+    if(n%3!=0 || x+y+z>k || (k-x-y-z)%3!=0 || (x<0) || y<0 || z<0)
+    return 0;
+     ll rem=n-k+x+y+z;
+     if(rem%3==0 && x<=rem/3 && y<=rem/3 && z<=rem/3)
+        return 1;
+     return 0;
+}
+
+int main(){
+    //freopen("in.txt", "r", stdin);
+   // freopen("output.txt","w",stdout);//redirects standard output
+       ios_base::sync_with_stdio(false);
+        cin.tie(NULL);
+
+   ll n;    cin>>n;     vector< pair<ll,ll> > v;     ll lt=0;    ll rt=0;
+   for(int i=0;i<n;i++){
+        ll x,y; cin>>x>>y;
+        v.pb(mp(x,y));    rt+=y;  lt+=x;
+   }
+   ll ans=abs(lt-rt);   ll ind=-1;
+   for(int i=0;i<n;i++){
+        ll x=v[i].first;    ll y=v[i].second;   ll l=lt;    ll r=rt;
+         l-=x;  l+=y;  r-=y;  r+=x;
+        if(ans<abs(l-r)){
+                ans=abs(l-r); ind=i; // cout<<ind<<"  "<<ans<<"\n";
+
+        }
+   }
+   if(ind==-1)
+    cout<<"0";
+   else
+    cout<<ind+1;
+
+    return 0;
+}
